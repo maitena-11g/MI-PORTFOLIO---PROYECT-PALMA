@@ -1,18 +1,36 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import { COLORES } from "./datos";
 
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function Layout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: COLORES.principal,
+        tabBarInactiveTintColor: "#9698A9",
+        tabBarStyle: {
+          backgroundColor: "#FFFFFF",
+          borderTopColor: COLORES.borde,
+          height: 68,
+          paddingTop: 8,
+          paddingBottom: 8,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: "600",
+        },
+        tabBarIcon: ({ color, size }: { color: string; size: number }) => (
+  <Ionicons name="home-outline" size={size} color={color} />
+),
+      }}
+    >
+      <Tabs.Screen name="index" options={{ title: "Inicio" }} />
+      <Tabs.Screen name="estudios" options={{ title: "Estudios" }} />
+      <Tabs.Screen name="habilidades" options={{ title: "Habilidades" }} />
+      <Tabs.Screen name="contacto" options={{ title: "Contacto" }} />
+      <Tabs.Screen name="explore" options={{ href: null }} />
+    </Tabs>
   );
 }
